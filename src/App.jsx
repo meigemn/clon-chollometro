@@ -1,22 +1,30 @@
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import HomePage from './components/home-page';
-/* import Login from './components/login';
-import { useState } from 'react'; */
+import HomePage from './components/home/home-page';
+import DataDisplay from './components/data-display';
+
 
 function App() {
-    /* const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [data, setData] = useState([]);
 
-    const showHomePage = () => {
-        setIsLoggedIn(true);
-    }; */
+    useEffect(() => {
+        fetch('/public/data.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => setData(data))
+            .catch(error => console.error('Error al cargar los datos:', error));
+    }, []);
 
     return (
         <>
-           {/*  {isLoggedIn ? <HomePage /> : <Login onLogin={showHomePage} />} */}
             <HomePage />
+            <DataDisplay data={data} />
         </>
     );
 }
 
 export default App;
-
