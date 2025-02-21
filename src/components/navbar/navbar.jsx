@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { faMagnifyingGlassDollar, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +16,6 @@ const Navbar = () => {
                     >
                         Logo
                     </a>
-
                 </div>
 
                 {/* Botón hamburguesa (mobile) */}
@@ -53,33 +50,47 @@ const Navbar = () => {
             >
                 <div className="lg:flex lg:items-stretch lg:justify-end ml-auto flex flex-col lg:flex-row">
                     {/* Search Input */}
-                    <div className="relative flex-grow-0 flex-shrink-0 py-2 px-4 w-full lg:w-auto mr-20">
+                    <div className="relative flex-grow-0 flex-shrink-0 py-2 px-4 w-full lg:w-auto mr-4">
                         <div className="relative">
                             <input
                                 type="text"
                                 placeholder="Search..."
-                                className="w-full py-1 pl-8 pr-2  text-gray-700 bg-white border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                                className="w-full py-1 pl-8 pr-2 text-gray-700 bg-white border border-gray-300 rounded focus:outline-none focus:border-gray-500"
                             />
                             <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
                                 <FontAwesomeIcon icon={faMagnifyingGlassDollar} className="text-gray-400" />
                             </div>
                         </div>
                     </div>
+
+                    {/* Filter Options */}
+                    <details className="filter-details mr-4">
+                        <summary className="filter-summary cursor-pointer py-2 px-4 text-white hover:bg-gray-700 rounded">
+                            Opciones de Filtrado
+                        </summary>
+                        <div className="filter-options bg-gray-700 p-4 rounded mt-2">
+                            <label className="block">
+                                <input type="radio" name="filter" value="price" className="mr-2" />
+                                Por Precio
+                            </label>
+                            <label className="block">
+                                <input type="radio" name="filter" value="new" className="mr-2" />
+                                Por Novedad
+                            </label>
+                            <label className="block">
+                                <input type="radio" name="filter" value="popularity" className="mr-2" />
+                                Por Popularidad
+                            </label>
+                        </div>
+                    </details>
+
                     <a
                         href="#"
-                        className="flex-grow-0 flex-shrink-0 relative py-2 px-4 mr-2 rounded-md leading-normal text-white no-underline flex items-center hover:bg-[#50C878]"
+                        className="flex-grow-0 flex-shrink-0 relative py-2 px-4 rounded-md leading-normal text-white no-underline flex items-center hover:bg-[#50C878]"
                     >
                         Iniciar Sesión
-                        <FontAwesomeIcon icon={faUser} className="text-gray-400 m-2" />
-
+                        <FontAwesomeIcon icon={faUser} className="text-gray-400 ml-2" />
                     </a>
-                  {/*   <a
-                        href="#"
-                        className="flex-grow-0 flex-shrink-0 relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-gray-700"
-                    >
-                        Item 3
-                    </a> */}
-                    
                 </div>
             </div>
         </nav>
