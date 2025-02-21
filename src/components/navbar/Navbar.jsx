@@ -6,7 +6,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="relative select-none bg-gray-800 lg:flex lg:items-stretch w-full">
+        <nav className="relative select-none bg-cyan-800 lg:flex lg:items-stretch w-full rounded-md shadow-2xl ">
             <div className="flex flex-shrink-0 items-stretch h-12">
                 {/* Logo y elementos izquierda */}
                 <div className="flex">
@@ -84,6 +84,11 @@ const Navbar = () => {
                         </div>
                     </details>
 
+                    <a href="" 
+                        className="flex-grow-0 flex-shrink-0 relative py-2 px-4 rounded-md leading-normal text-white no-underline flex items-center hover:bg-[#50C878]"
+                    >
+                        Listas
+                    </a> 
                     <a
                         href="#"
                         className="flex-grow-0 flex-shrink-0 relative py-2 px-4 rounded-md leading-normal text-white no-underline flex items-center hover:bg-[#50C878]"
