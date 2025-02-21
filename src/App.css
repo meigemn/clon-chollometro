@@ -3,4 +3,5 @@
 body{
     padding-inline: 60px;
     background-color: #F5F5F5 ;
+    box-sizing:content-box;
 }

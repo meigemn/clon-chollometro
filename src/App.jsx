@@ -1,6 +1,7 @@
 
 import './App.css';
-import Navbar from './components/navbar/navbar';
+import HomePage from './components/homepage/Home-Page';
+import Navbar from './components/navbar/Navbar';
 
 
 
@@ -11,6 +12,7 @@ function App() {
     return (
         <>
             <Navbar />
+            <HomePage />
         </>
     );
 }
