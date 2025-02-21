@@ -6,7 +6,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="relative select-none bg-cyan-800 lg:flex lg:items-stretch w-full rounded-md shadow-2xl ">
+        <nav className="relative select-none bg-cyan-800 lg:flex lg:items-stretch w-full rounded-md shadow-2xl mb-20 mt-3">
             <div className="flex flex-shrink-0 items-stretch h-12">
                 {/* Logo y elementos izquierda */}
                 <div className="flex">
