@@ -1,59 +1,68 @@
 import PropTypes from 'prop-types';
-export default function Producto(props) {
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+
+export default function Producto({ imagenProducto, nombreProducto, descripcion, categoria, rating }) {
+    const getStars = (rate) => {
+        const stars = [];
+        const fullStars = Math.floor(rate);
+        const hasHalfStar = rate - fullStars >= 0.5;
+
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<FaStar key={i} className="text-yellow-500" />);
+        }
+
+        if (hasHalfStar) {
+            stars.push(<FaStarHalfAlt key="half" className="text-yellow-500" />);
+        }
+
+        const emptyStars = 5 - stars.length;
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
+        }
+
+        return stars;
+    };
+
     return (
-        <>
-            <div className="flex flex-col md:flex-row w-full p-4 border-2 border-black rounded-md shadow-2xl my-4 bg-white">
-                {/* div que contiene la imagen */}
-                <div className="w-full md:w-[300px] h-[150px] md:h-full mb-4 md:mb-0">
-                    <img
-                        src={props.imagenProducto}
-                        alt="producto"
-                        className="w-full h-full rounded-md object-cover"
-                    />
+        <div className="flex flex-col md:flex-row w-full p-4 border-2 border-gray-300 rounded-md shadow-lg my-4 bg-white">
+            {/* div que contiene la imagen */}
+            <div className="w-full md:w-[300px] h-[150px] md:h-full mb-4 md:mb-0">
+                <img
+                    src={imagenProducto}
+                    alt={nombreProducto}
+                    className="w-full h-full rounded-md object-cover"
+                />
+            </div>
+            <div className="flex flex-col w-full md:ml-4">
+                <div className="flex justify-end mb-2 text-sm text-gray-500">
+                    {categoria}
                 </div>
-                <div className="flex flex-col w-full md:ml-4">
-                    <div className="flex justify-end mb-2 text-sm text-gray-500">
-                        Publicado hace {props.publicadoHace} 
+                <div className="flex flex-col items-start justify-between">
+                    <div className="text-lg font-semibold cursor-pointer">
+                        {nombreProducto}
                     </div>
-                    <div className="flex flex-col items-start justify-between">
-                        <div className="text-lg font-semibold cursor-pointer  ">
-                            {props.nombreProducto}
+                    <section className="mt-2">
+                        <div className="flex items-center">
+                            {getStars(rating.rate)}
+                            <span className="ml-2 text-gray-500">({rating.count})</span>
                         </div>
-                        <section className="mt-2">
-                            <div className="flex items-center">
-                                <div className="text-2xl mr-2 text-amber-500">
-                                    {props.precioActual}
-                                </div>
-                                <div className="text-xl text-gray-500 line-through">
-                                    {props.precioAntiguo}
-                                </div>
-                            </div>
-                        </section>
-                        <section className="flex items-center mt-4">
-                            <div className="text-sm mr-4 cursor-pointer text-gray-500 ">
-                                {props.sitioVenta}
-                            </div>
-                            <img
-                                src="/src/assets/images/daft-punk.jpg"
-                                alt="producto"
-                                className="w-8 h-8 rounded-full"
-                            />
-                            <div className="ml-2 text-sm cursor-pointer ">
-                                {props.nombreUsuario}
-                            </div>
-                        </section>
-                    </div>
+                    </section>
+                    <section className="mt-4">
+                        <p className="text-gray-700">{descripcion}</p>
+                    </section>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
+
 Producto.propTypes = {
     imagenProducto: PropTypes.string.isRequired,
     nombreProducto: PropTypes.string.isRequired,
-    publicadoHace: PropTypes.number.isRequired,
-    precioActual: PropTypes.number.isRequired,
-    precioAntiguo: PropTypes.number.isRequired,
-    sitioVenta: PropTypes.string.isRequired,
-    nombreUsuario: PropTypes.string.isRequired,
+    descripcion: PropTypes.string.isRequired,
+    categoria: PropTypes.string.isRequired,
+    rating: PropTypes.shape({
+        rate: PropTypes.number.isRequired,
+        count: PropTypes.number.isRequired,
+    }).isRequired,
 };
