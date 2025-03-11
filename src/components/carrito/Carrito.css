@@ -1,0 +1,17 @@
+/* Carrito.css */
+.modal-backdrop-carrito {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    backdrop-filter: blur(4px); /* Efecto de desenfoque */
+    z-index: 40; /* Asegura que esté detrás del modal */
+}
+
+.modal-content-carrito {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50; /* Asegura que esté por encima del fondo */
+}

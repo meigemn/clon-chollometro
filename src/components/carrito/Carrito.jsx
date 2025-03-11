@@ -1,0 +1,105 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { useCart } from '../../context/CartContext';
+import './Carrito.css'; // Importa el archivo CSS actualizado
+import Lottie from 'lottie-react'; // Importa el componente Lottie
+import carritoVacioAnimation from '../../assets/animacion_lottie_fantasma.json'; // Importa el archivo JSON de Lottie
+
+const Carrito = ({ setIsCartVisible }) => {
+    const { cartItems, removeFromCart } = useCart();
+
+    // Calcular el importe total
+    const totalAmount = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+
+    return ReactDOM.createPortal(
+        <>
+            {/* Fondo semi-transparente con desenfoque */}
+            <div className="modal-backdrop-carrito"></div>
+
+            {/* Contenedor del modal */}
+            <div className="modal-content-carrito">
+                <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
+                    {/* Encabezado del carrito */}
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-gray-800">Carrito de compras</h2>
+                        <button
+                            onClick={() => setIsCartVisible(false)}
+                            className="text-gray-500 hover:text-gray-700"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* Lista de productos o animación Lottie cuando el carrito está vacío */}
+                    {cartItems.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center">
+                            <Lottie
+                                animationData={carritoVacioAnimation} // Archivo JSON de la animación
+                                loop={true} // Repetir la animación
+                                autoplay={true} // Reproducir automáticamente
+                                style={{ width: 200, height: 200 }} // Tamaño de la animación
+                            />
+                            <p className="text-gray-600 mt-4">Tu carrito está vacío.</p>
+                        </div>
+                    ) : (
+                        <ul className="space-y-4">
+                            {cartItems.map((item) => (
+                                <li key={item.cartItemId} className="flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <img src={item.imagenProducto} alt={item.nombreProducto} className="w-16 h-16 object-cover rounded-lg" />
+                                        <div className="ml-4">
+                                            <p className="font-semibold text-gray-800">{item.nombreProducto}</p>
+                                            <p className="text-sm text-gray-500">${item.precio.toFixed(2)}</p>
+                                            <p className="text-sm text-gray-500">Cantidad: {item.quantity}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => removeFromCart(item.cartItemId)} // Eliminar por cartItemId
+                                        className="text-red-500 hover:text-red-700"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {/* Importe total */}
+                    {cartItems.length > 0 && (
+                        <div className="mt-6 pt-4 border-t border-gray-200">
+                            <div className="flex justify-between items-center">
+                                <p className="text-gray-600">Total:</p>
+                                <p className="text-xl font-bold text-gray-800">${totalAmount.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Botones de acción */}
+                    <div className="mt-6 space-y-4">
+                        <button
+                            onClick={() => setIsCartVisible(false)}
+                            className="w-full bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors hover:cursor-pointer"
+                        >
+                            Seguir comprando
+                        </button>
+                        {cartItems.length > 0 && (
+                            <button
+                                onClick={() => alert('Proceso de pago no implementado')}
+                                className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                            >
+                                Proceder al pago
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </>,
+        document.getElementById('cart-root') // Renderizar en el portal
+    );
+};
+
+export default Carrito;

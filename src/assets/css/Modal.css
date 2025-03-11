@@ -1,0 +1,34 @@
+/* src/assets/css/Modal.css */
+.modal-backdrop-producto {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    backdrop-filter: blur(4px); /* Efecto de desenfoque */
+    z-index: 50; /* Asegura que esté por encima del contenido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content-producto {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close-button-producto {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: #6b7280; /* Color gris */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal-close-button-producto:hover {
+    color: #374151; /* Color gris más oscuro al hacer hover */
+}

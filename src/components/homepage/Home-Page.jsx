@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import ProductoConCarrito from "../producto/ProductoConCarrito";
+import ProductoConCarrito from '../producto/ProductoConCarrito';
 
 export default function HomePage({ searchQuery }) {
     const [productos, setProductos] = useState([]);
     const [filteredProductos, setFilteredProductos] = useState([]);
     const [error, setError] = useState(null);
-    const [carrito, setCarrito] = useState([]);
 
     useEffect(() => {
         const fetchProductos = async () => {
@@ -15,11 +14,11 @@ export default function HomePage({ searchQuery }) {
                 const data = await response.json();
                 const dataWithExtraFields = data.map(producto => ({
                     ...producto,
-                    publicadoHace: Math.floor(Math.random() * 10) + 1, // Ejemplo de valor aleatorio
+                    publicadoHace: Math.floor(Math.random() * 10) + 1,
                     precioActual: producto.price,
-                    precioAntiguo: producto.price * 2, // Ejemplo de valor aleatorio
-                    sitioVenta: "example.com", // Ejemplo de valor fijo
-                    nombreUsuario: "Usuario anónimo" // Ejemplo de valor fijo
+                    precioAntiguo: producto.price * 2,
+                    sitioVenta: "example.com",
+                    nombreUsuario: "Usuario anónimo"
                 }));
                 setProductos(dataWithExtraFields);
                 setFilteredProductos(dataWithExtraFields);
@@ -42,10 +41,6 @@ export default function HomePage({ searchQuery }) {
         }
     }, [searchQuery, productos]);
 
-    const handleAddToCart = (producto) => {
-        setCarrito(prevCarrito => [...prevCarrito, producto]);
-    };
-
     if (error) {
         return <div>Error: {error}</div>;
     }
@@ -58,30 +53,13 @@ export default function HomePage({ searchQuery }) {
                         key={producto.id}
                         imagenProducto={producto.image}
                         nombreProducto={producto.title}
-                        publicadoHace={producto.publicadoHace}
-                        precioActual={producto.precioActual}
-                        precioAntiguo={producto.precioAntiguo}
-                        sitioVenta={producto.sitioVenta}
-                        nombreUsuario={producto.nombreUsuario}
+                        descripcion={producto.description}
+                        categoria={producto.category}
                         rating={producto.rating}
-                        onAddToCart={() => handleAddToCart(producto)}
+                        precio={producto.price}
+                        id={producto.id}
                     />
                 ))}
-            </div>
-            <div className="mt-8">
-                <h2 className="text-2xl font-semibold">Carrito</h2>
-                {carrito.length === 0 ? (
-                    <p>El carrito está vacío.</p>
-                ) : (
-                    <ul>
-                        {carrito.map((producto, index) => (
-                            <li key={index} className="flex items-center justify-between p-2 border-b border-gray-200">
-                                <span>{producto.title}</span>
-                                <span>${producto.price}</span>
-                            </li>
-                        ))}
-                    </ul>
-                )}
             </div>
         </div>
     );

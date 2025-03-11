@@ -25,7 +25,7 @@ export default function Producto({ imagenProducto, nombreProducto, descripcion, 
 
     return (
         <div className="flex flex-col md:flex-row w-full p-4 border-2 border-gray-300 rounded-md shadow-lg my-4 bg-white">
-            {/* div que contiene la imagen */}
+            {/* Imagen del producto */}
             <div className="w-full md:w-[300px] h-[150px] md:h-full mb-4 md:mb-0">
                 <img
                     src={imagenProducto}
@@ -33,6 +33,8 @@ export default function Producto({ imagenProducto, nombreProducto, descripcion, 
                     className="w-full h-full rounded-md object-cover"
                 />
             </div>
+
+            {/* Detalles del producto */}
             <div className="flex flex-col w-full md:ml-4">
                 <div className="flex justify-end mb-2 text-sm text-gray-500">
                     {categoria}
