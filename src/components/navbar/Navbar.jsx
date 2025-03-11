@@ -267,7 +267,7 @@ const Navbar = ({ onSearch }) => {
                         <div className="flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
                             <button
                                 onClick={() => setIsInsertFormVisible(true)} // Mostrar formulario de inserción
-                                className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] transition-colors"
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] transition-colors hover:cursor-pointer"
                             >
                                 Insertar producto
                             </button>
@@ -276,7 +276,7 @@ const Navbar = ({ onSearch }) => {
                                     setIsPriceGraphVisible(false); // Cerrar gráfico de precios
                                     setIsGraphVisible(!isGraphVisible); // Mostrar/ocultar gráfico de valoraciones
                                 }}
-                                className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
                             >
                                 Gráfico valoraciones
                             </button>
@@ -285,7 +285,7 @@ const Navbar = ({ onSearch }) => {
                                     setIsGraphVisible(false); // Cerrar gráfico de valoraciones
                                     setIsPriceGraphVisible(!isPriceGraphVisible); // Mostrar/ocultar gráfico de precios
                                 }}
-                                className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
                             >
                                 Gráfico precios
                             </button>
