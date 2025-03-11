@@ -90,7 +90,7 @@ const GraficaPrecios = ({ productos, onClose }) => {
                 </button>
 
                 {/* Gráfico de radar */}
-                <div className="p-6  w-[800px] h-[800px]">
+                <div className="p-6  w-[700px] h-[700px]">
                     <Radar data={data} options={options} />
                 </div>
             </div>
