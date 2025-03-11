@@ -4,12 +4,18 @@ import { useCart } from '../../context/CartContext';
 import './Carrito.css'; // Importa el archivo CSS actualizado
 import Lottie from 'lottie-react'; // Importa el componente Lottie
 import carritoVacioAnimation from '../../assets/animacion_lottie_fantasma.json'; // Importa el archivo JSON de Lottie
+import animacionDescuento from '../../assets/animacion_descuento.json'; // Importa la animación de descuento
 
 const Carrito = ({ setIsCartVisible }) => {
-    const { cartItems, removeFromCart } = useCart();
+    const { cartItems, removeFromCart, increaseQuantity } = useCart();
 
-    // Calcular el importe total
+    // Calcular el importe total sin descuento
     const totalAmount = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+
+    // Aplicar descuento del 50% si el total es igual o superior a 200
+    const discountThreshold = 200;
+    const discount = totalAmount >= discountThreshold ? totalAmount * 0.5 : 0;
+    const totalWithDiscount = totalAmount - discount;
 
     return ReactDOM.createPortal(
         <>
@@ -55,28 +61,61 @@ const Carrito = ({ setIsCartVisible }) => {
                                             <p className="text-sm text-gray-500">Cantidad: {item.quantity}</p>
                                         </div>
                                     </div>
-                                    <button
-                                        onClick={() => removeFromCart(item.cartItemId)} // Eliminar por cartItemId
-                                        className="text-red-500 hover:text-red-700"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
+                                    <div className="flex items-center space-x-2">
+                                        {/* Botón de sumar */}
+                                        <button
+                                            onClick={() => increaseQuantity(item.cartItemId)}
+                                            className="text-green-500 hover:text-green-700"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                            </svg>
+                                        </button>
+                                        {/* Botón de restar (papelera) */}
+                                        <button
+                                            onClick={() => removeFromCart(item.cartItemId)}
+                                            className="text-red-500 hover:text-red-700"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
                     )}
 
-                    {/* Importe total */}
-                    {cartItems.length > 0 && (
-                        <div className="mt-6 pt-4 border-t border-gray-200">
-                            <div className="flex justify-between items-center">
-                                <p className="text-gray-600">Total:</p>
-                                <p className="text-xl font-bold text-gray-800">${totalAmount.toFixed(2)}</p>
-                            </div>
+                    {/* Animación de descuento si el total es igual o superior a 200 */}
+                    {totalAmount >= discountThreshold && (
+                        <div className="flex flex-col items-center justify-center mt-4">
+                            <Lottie
+                                animationData={animacionDescuento} // Archivo JSON de la animación de descuento
+                                loop={true} // Repetir la animación
+                                autoplay={true} // Reproducir automáticamente
+                                style={{ width: 150, height: 150 }} // Tamaño de la animación
+                            />
+                            <p className="text-green-600 font-semibold mt-2">¡Descuento del 50% aplicado!</p>
                         </div>
                     )}
+
+                    {/* Importe total */}
+                    <div className="mt-6 pt-4 border-t border-gray-200">
+                        <div className="flex justify-between items-center">
+                            <p className="text-gray-600">Subtotal:</p>
+                            <p className="text-xl font-bold text-gray-800">${totalAmount.toFixed(2)}</p>
+                        </div>
+                        {totalAmount >= discountThreshold && (
+                            <div className="flex justify-between items-center mt-2">
+                                <p className="text-gray-600">Descuento (50%):</p>
+                                <p className="text-xl font-bold text-red-600">-${discount.toFixed(2)}</p>
+                            </div>
+                        )}
+                        <div className="flex justify-between items-center mt-2">
+                            <p className="text-gray-600">Total:</p>
+                            <p className="text-xl font-bold text-gray-800">${totalWithDiscount.toFixed(2)}</p>
+                        </div>
+                    </div>
 
                     {/* Botones de acción */}
                     <div className="mt-6 space-y-4">

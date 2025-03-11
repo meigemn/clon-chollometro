@@ -21,6 +21,9 @@ const Navbar = ({ onSearch }) => {
 
     const [isCartVisible, setIsCartVisible] = useState(false); // Estado para controlar la visibilidad del carrito
 
+    // Calcular la cantidad total de productos en el carrito
+    const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
+
     // Fetch inicial de productos
     useEffect(() => {
         const fetchProducts = async () => {
@@ -260,9 +263,9 @@ const Navbar = ({ onSearch }) => {
                             <div className="relative ml-0 lg:ml-4 py-2 lg:py-0">
                                 <button onClick={() => setIsCartVisible(!isCartVisible)} className="relative">
                                     <FaShoppingCart className="text-white text-2xl" />
-                                    {cartItems.length > 0 && (
+                                    {totalItemsInCart > 0 && (
                                         <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                                            {cartItems.length}
+                                            {totalItemsInCart}
                                         </span>
                                     )}
                                 </button>

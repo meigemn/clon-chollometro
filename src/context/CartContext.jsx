@@ -9,7 +9,6 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (product) => {
         setCartItems((prevItems) => {
-            // Buscar si el producto ya está en el carrito
             const existingItemIndex = prevItems.findIndex((item) => item.id === product.id);
 
             if (existingItemIndex !== -1) {
@@ -34,7 +33,6 @@ export const CartProvider = ({ children }) => {
 
     const removeFromCart = (cartItemId) => {
         setCartItems((prevItems) => {
-            // Buscar el producto por cartItemId
             const existingItemIndex = prevItems.findIndex((item) => item.cartItemId === cartItemId);
 
             if (existingItemIndex !== -1) {
@@ -57,8 +55,25 @@ export const CartProvider = ({ children }) => {
         });
     };
 
+    const increaseQuantity = (cartItemId) => {
+        setCartItems((prevItems) => {
+            const existingItemIndex = prevItems.findIndex((item) => item.cartItemId === cartItemId);
+
+            if (existingItemIndex !== -1) {
+                // Incrementar la cantidad del producto
+                const updatedItems = [...prevItems];
+                updatedItems[existingItemIndex] = {
+                    ...updatedItems[existingItemIndex],
+                    quantity: updatedItems[existingItemIndex].quantity + 1,
+                };
+                return updatedItems;
+            }
+            return prevItems;
+        });
+    };
+
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity }}>
             {children}
         </CartContext.Provider>
     );
