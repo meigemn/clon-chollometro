@@ -51,7 +51,7 @@ export default function ProductoConCarrito({ imagenProducto, nombreProducto, des
     };
 
     return (
-        <div className="flex flex-col md:flex-row w-full p-4 border-2 border-black rounded-md shadow-2xl my-4 bg-white">
+        <div className="flex flex-col md:flex-row w-full p-4 border-2 border-black rounded-md shadow-2xl my-4 bg-white  hover:shadow-xl hover:border-amber-400">
             {/* Imagen del producto */}
             <div
                 className="w-full md:w-[300px] h-[150px] md:h-full mb-4 md:mb-0 bg-contain bg-center rounded-md cursor-zoom-in" // cursor-zoom-in para la lupa

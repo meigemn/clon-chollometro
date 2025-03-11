@@ -4,6 +4,6 @@ body{
     padding-inline: 60px;
     background-color: #F5F5F5 ;
     box-sizing:content-box;
-    background-image: url(/src/assets/images/fondo-patron.jpg);
+
     background-size: cover;
 }

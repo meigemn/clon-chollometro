@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlassDollar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
 import { FiChevronDown, FiX } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
 import didYouMean from 'didyoumean2';
-import Carrito from '../carrito/Carrito'; // Ruta correcta // Importa el componente Carrito
+import Carrito from '../carrito/Carrito'; // Ruta correcta
+import GraficaValoracion from '../graficas/GraficaValoracion'; // Importa el componente de gráfica de valoraciones
+import GraficaPrecios from '../graficas/GraficaPrecios'; // Importa el componente de gráfica de precios
+import InsertarProducto from '../formulario/InsertarProducto'; // Importa el componente de inserción de productos
 
 const Navbar = ({ onSearch }) => {
     const { cartItems } = useCart();
@@ -20,6 +23,9 @@ const Navbar = ({ onSearch }) => {
     const [isInitialLoading, setIsInitialLoading] = useState(true);
 
     const [isCartVisible, setIsCartVisible] = useState(false); // Estado para controlar la visibilidad del carrito
+    const [isGraphVisible, setIsGraphVisible] = useState(false); // Estado para controlar la visibilidad del gráfico de valoraciones
+    const [isPriceGraphVisible, setIsPriceGraphVisible] = useState(false); // Estado para controlar la visibilidad del gráfico de precios
+    const [isInsertFormVisible, setIsInsertFormVisible] = useState(false); // Estado para controlar la visibilidad del formulario de inserción
 
     // Calcular la cantidad total de productos en el carrito
     const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -139,6 +145,12 @@ const Navbar = ({ onSearch }) => {
         );
     };
 
+    // Función para manejar la inserción del producto
+    const handleInsertProduct = (newProduct) => {
+        console.log('Producto insertado:', newProduct);
+        // Aquí puedes actualizar la lista de productos si es necesario
+    };
+
     return (
         <nav className="relative select-none bg-cyan-800 lg:flex lg:items-center w-full rounded-md shadow-2xl mb-20 mt-3 min-h-[3rem]">
             <div className="flex flex-shrink-0 items-center justify-between h-12 w-full lg:w-auto">
@@ -161,8 +173,8 @@ const Navbar = ({ onSearch }) => {
             {/* Elementos de navegación */}
             <div
                 className={`${isOpen
-                        ? 'absolute top-full left-0 right-0 bg-cyan-800 lg:bg-transparent'
-                        : 'hidden'
+                    ? 'absolute top-full left-0 right-0 bg-cyan-800 lg:bg-transparent'
+                    : 'hidden'
                     } lg:flex lg:items-center lg:flex-grow`}
             >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-end lg:ml-auto w-full px-4 pb-2 lg:pb-0">
@@ -237,32 +249,51 @@ const Navbar = ({ onSearch }) => {
                         {/* Filtros */}
                         <div className="flex flex-row items-center space-x-4 py-2">
                             <label htmlFor="ciudades" className="text-white text-sm font-medium">
-                                Filtrar por:
+                                Ordenar por:
                             </label>
                             <select
                                 id="ciudades"
                                 name="ciudades"
-                                className="px-3 py-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white hover:border-gray-400 transition-all"
+                                className="px-3 py-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white hover:border-gray-400 transition-all hover:cursor-pointer"
                             >
-                                <option value="precio">Precio</option>
-                                <option value="publicacion">Publicación</option>
+                                <option value="precio">Más barato</option>
+                                <option value="publicacion">Más caro</option>
+                                <option value="precio">Nombre A-Z</option>
+                                <option value="publicacion">Nombre Z-A</option>
                             </select>
                         </div>
 
                         {/* Links y carrito */}
                         <div className="flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
-                            <a href="#" className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] transition-colors">
-                                Listas
-                            </a>
-                            <a href="#" className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] transition-colors">
-                                <FontAwesomeIcon icon={faUser} className="mr-2" />
-                                Iniciar Sesión
-                            </a>
+                            <button
+                                onClick={() => setIsInsertFormVisible(true)} // Mostrar formulario de inserción
+                                className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] transition-colors"
+                            >
+                                Insertar producto
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setIsPriceGraphVisible(false); // Cerrar gráfico de precios
+                                    setIsGraphVisible(!isGraphVisible); // Mostrar/ocultar gráfico de valoraciones
+                                }}
+                                className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
+                            >
+                                Gráfico valoraciones
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setIsGraphVisible(false); // Cerrar gráfico de valoraciones
+                                    setIsPriceGraphVisible(!isPriceGraphVisible); // Mostrar/ocultar gráfico de precios
+                                }}
+                                className="flex items-center py-2 px-4 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
+                            >
+                                Gráfico precios
+                            </button>
 
                             {/* Carrito integrado */}
-                            <div className="relative ml-0 lg:ml-4 py-2 lg:py-0">
+                            <div className="relative ml-0 lg:ml-4 py-2 lg:py-0 ">
                                 <button onClick={() => setIsCartVisible(!isCartVisible)} className="relative">
-                                    <FaShoppingCart className="text-white text-2xl" />
+                                    <FaShoppingCart className="text-white text-2xl hover:cursor-pointer" />
                                     {totalItemsInCart > 0 && (
                                         <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                                             {totalItemsInCart}
@@ -277,6 +308,30 @@ const Navbar = ({ onSearch }) => {
 
             {/* Renderizar el carrito si está visible */}
             {isCartVisible && <Carrito setIsCartVisible={setIsCartVisible} />}
+
+            {/* Renderizar el gráfico de valoraciones si está visible */}
+            {isGraphVisible && (
+                <GraficaValoracion
+                    valoraciones={allProducts} // Pasar los productos
+                    onClose={() => setIsGraphVisible(false)} // Función para cerrar el modal
+                />
+            )}
+
+            {/* Renderizar el gráfico de precios si está visible */}
+            {isPriceGraphVisible && (
+                <GraficaPrecios
+                    productos={allProducts} // Pasar los productos
+                    onClose={() => setIsPriceGraphVisible(false)} // Función para cerrar el modal
+                />
+            )}
+
+            {/* Renderizar el formulario de inserción si está visible */}
+            {isInsertFormVisible && (
+                <InsertarProducto
+                    onClose={() => setIsInsertFormVisible(false)} // Cerrar el formulario
+                    onInsert={handleInsertProduct} // Manejar la inserción del producto
+                />
+            )}
         </nav>
     );
 };
