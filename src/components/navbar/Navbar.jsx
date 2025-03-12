@@ -248,26 +248,20 @@ const Navbar = ({ onSearch }) => {
                     <div className="flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
                         {/* Filtros */}
                         <div className="flex flex-row items-center space-x-4 py-2">
-                            <label htmlFor="ciudades" className="text-white text-sm font-medium">
-                                Ordenar por:
-                            </label>
-                            <select
-                                id="ciudades"
-                                name="ciudades"
-                                className="px-3 py-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white hover:border-gray-400 transition-all hover:cursor-pointer"
+                        <button
+                                onClick={() => setIsInsertFormVisible(true)} // Mostrar formulario de inserción
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] transition-colors hover:cursor-pointer active:scale-95"
                             >
-                                <option value="precio">Más barato</option>
-                                <option value="publicacion">Más caro</option>
-                                <option value="precio">Nombre A-Z</option>
-                                <option value="publicacion">Nombre Z-A</option>
-                            </select>
+                                Sobre nosotros
+                            </button>
+                            
                         </div>
 
                         {/* Links y carrito */}
                         <div className="flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
                             <button
                                 onClick={() => setIsInsertFormVisible(true)} // Mostrar formulario de inserción
-                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] transition-colors hover:cursor-pointer"
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] transition-colors hover:cursor-pointer active:scale-95"
                             >
                                 Insertar producto
                             </button>
@@ -276,7 +270,7 @@ const Navbar = ({ onSearch }) => {
                                     setIsPriceGraphVisible(false); // Cerrar gráfico de precios
                                     setIsGraphVisible(!isGraphVisible); // Mostrar/ocultar gráfico de valoraciones
                                 }}
-                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors active:scale-95"
                             >
                                 Gráfico valoraciones
                             </button>
@@ -285,7 +279,7 @@ const Navbar = ({ onSearch }) => {
                                     setIsGraphVisible(false); // Cerrar gráfico de valoraciones
                                     setIsPriceGraphVisible(!isPriceGraphVisible); // Mostrar/ocultar gráfico de precios
                                 }}
-                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors"
+                                className="flex items-center py-1 px-2 rounded-md text-white hover:bg-[#50C878] hover:cursor-pointer transition-colors active:scale-95"
                             >
                                 Gráfico precios
                             </button>
@@ -293,7 +287,7 @@ const Navbar = ({ onSearch }) => {
                             {/* Carrito integrado */}
                             <div className="relative ml-0 lg:ml-4 py-2 lg:py-0 ">
                                 <button onClick={() => setIsCartVisible(!isCartVisible)} className="relative">
-                                    <FaShoppingCart className="text-white text-2xl hover:cursor-pointer" />
+                                    <FaShoppingCart className="text-white text-2xl hover:cursor-pointer active:scale-95" />
                                     {totalItemsInCart > 0 && (
                                         <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                                             {totalItemsInCart}

@@ -94,7 +94,7 @@ export default function ProductoConCarrito({ imagenProducto, nombreProducto, des
                 {/* Botón "Añadir al carrito" */}
                 <button
                     onClick={handleAddToCart}
-                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 hover:cursor-pointer transition-transform transform hover:-translate-y-1"
+                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-md active:bg-blue-600 hover:cursor-pointer transition-transform transform hover:-translate-y-1 active:scale-95"
                 >
                     Añadir al carrito
                 </button>
