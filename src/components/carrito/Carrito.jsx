@@ -103,17 +103,17 @@ const Carrito = ({ setIsCartVisible }) => {
                     <div className="mt-4 pt-4 border-t border-gray-200">
                         <div className="flex justify-between items-center">
                             <p className="text-gray-600 text-sm">Subtotal:</p>
-                            <p className="text-lg font-bold text-gray-800">${totalAmount.toFixed(2)}</p>
+                            <p className="text-lg font-bold text-gray-800">{totalAmount.toFixed(2)}€</p>
                         </div>
                         {totalAmount >= discountThreshold && (
                             <div className="flex justify-between items-center mt-2">
                                 <p className="text-gray-600 text-sm">Descuento (50%):</p>
-                                <p className="text-lg font-bold text-red-600">-${discount.toFixed(2)}</p>
+                                <p className="text-lg font-bold text-red-600">-{discount.toFixed(2)}€</p>
                             </div>
                         )}
                         <div className="flex justify-between items-center mt-2">
                             <p className="text-gray-600 text-sm">Total:</p>
-                            <p className="text-lg font-bold text-gray-800">${totalWithDiscount.toFixed(2)}</p>
+                            <p className="text-lg font-bold text-gray-800">{totalWithDiscount.toFixed(2)}€</p>
                         </div>
                     </div>
 
