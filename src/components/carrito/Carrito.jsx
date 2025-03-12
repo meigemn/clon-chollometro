@@ -96,20 +96,23 @@ const Carrito = ({ setIsCartVisible }) => {
                                 style={{ width: 100, height: 100 }} // Tamaño de la animación
                             />
                             <p className="text-green-600 font-semibold text-sm mt-2">¡Descuento del 50% aplicado!</p>
+                            <div className="flex justify-between items-center">
+                            <p className="text-gray-600 text-sm mr-5">Subtotal:</p>
+                            <p className="text-lg font-bold text-gray-800">{totalAmount.toFixed(2)} €</p>
+                        </div>
                         </div>
                     )}
 
                     {/* Importe total */}
                     <div className="mt-4 pt-4 border-t border-gray-200">
-                        <div className="flex justify-between items-center">
-                            <p className="text-gray-600 text-sm">Subtotal:</p>
-                            <p className="text-lg font-bold text-gray-800">{totalAmount.toFixed(2)} €</p>
-                        </div>
+                        
                         {totalAmount >= discountThreshold && (
                             <div className="flex justify-between items-center mt-2">
                                 <p className="text-gray-600 text-sm">Descuento (50%):</p>
                                 <p className="text-lg font-bold text-red-600">-{discount.toFixed(2)} €</p>
+                                
                             </div>
+                            
                         )}
                         <div className="flex justify-between items-center mt-2">
                             <p className="text-gray-600 text-sm">Total:</p>
